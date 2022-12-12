@@ -1,49 +1,59 @@
-import ShoppingItem from "./components/ShoppingItem";
+import React, { useState } from "react";
+import NewShoppingItem from "./components/NewShoppingItem";
+import ShoppingItems from "./components/ShoppingItems";
 import "./App.css";
-import { useEffect, useState } from "react";
 
-function App() {
-  const [shoppingItems, setItems] = useState('');
-  useEffect(() =>{
-    const request = new Request("http://localhost:3005/all", {
-      method: 'GET',
-      // headers: myHeaders,
-      mode: 'no-cors',
-      cache: 'default',
+const DUMMY_PROFUCTS = [
+  {
+    productName: "soap kit",
+    id: "e2",
+    title: "NewTV",
+    price: 799.49,
+    photoURI: "product1.jpeg",
+  },
+  {
+    productName: "hands soap",
+    id: "e3",
+    title: "Car ins",
+    price: 294.89,
+    photoURI: "product2.jpeg",
+  },
+  {
+    productName: "comb",
+    id: "e4",
+    title: "New Desk",
+    price: 450,
+    photoURI: "product3.jpeg",
+  },
+  {
+    productName: "shampoo",
+    id: "e5",
+    title: "New Desk",
+    price: 450,
+    photoURI: "product4.jpeg",
+  },
+];
+
+const App = () => {
+  const [products, setProducts] = useState(DUMMY_PROFUCTS);
+
+  const addProductsHandler = (product) => {
+    console.log("im in APP.js");
+    console.log(product);
+
+    setProducts((prevProduct) => {
+      return [product, ...prevProduct];
     });
+  };
 
-    fetch(request)
-      .then((Response)=>Response.json())
-      .then((data)=>setItems(data))
-      .catch((error)=> console.log(error));
-    console.log(shoppingItems);
-  }, [shoppingItems]);
-  const shoppingList = [
-    { productName: "soap kit", price: 30, productPhoto: "product1.jpeg", store:"laline", desc:"a bunch of soaps", pic:"prod1_other.jpeg" },
-    { productName: "hands soap", price: 20, productPhoto: "product2.jpeg", store:"lydl", desc:"product you use to wash your hand", pic:"prod2_other.jpeg" },
-    { productName: "comb", price: 10, productPhoto: "product3.jpeg", store:"wallmart", desc:"a life saver on a bad hair day", pic:"prod3_other.jpeg" },
-    { productName: "shampoo", price: 50, productPhoto: "product4.jpeg", store:"giant", desc:"just a standard hair product", pic:"prod4_other.jpeg" },
-  ];
   return (
     <div className="container">
       <div className="header">
         <h1>shopping List:</h1>
       </div>
-      {shoppingList.map((item, index) => {
-        return (
-          <ShoppingItem
-            key={index}
-            productName={item.productName}
-            price={item.price}
-            productPhoto={item.productPhoto}
-            store={item.store}
-            desc={item.desc}
-            pic={item.pic}
-          ></ShoppingItem>
-        );
-      })}
+      <NewShoppingItem onAddShopping={addProductsHandler} />
+      <ShoppingItems items={products} />
     </div>
   );
-}
-
+};
 export default App;

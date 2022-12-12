@@ -12,7 +12,7 @@
   width: 550px;
 }
 
-.expense_item_container {
+.shopping_item_container {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -61,13 +61,14 @@
   width: 400px;
   background-color: rgb(18, 18, 18);
   border: 2px solid rgb(0, 0, 0);
-  box-shadow: rgb(0 0 0 / 20%) 0px 11px 15px -7px, rgb(0 0 0 / 14%) 0px 24px 38px 3px, rgb(0 0 0 / 12%) 0px 9px 46px 8px;
+  box-shadow: rgb(0 0 0 / 20%) 0px 11px 15px -7px,
+    rgb(0 0 0 / 14%) 0px 24px 38px 3px, rgb(0 0 0 / 12%) 0px 9px 46px 8px;
   padding: 32px;
 }
 
-.modal-modal-title {  
+.modal-modal-title {
   margin: 0;
-  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-weight: 500;
   font-size: 1.25rem;
   line-height: 1.6;
