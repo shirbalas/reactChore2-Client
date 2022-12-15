@@ -1,58 +1,58 @@
 import React, { useState } from "react";
-import NewShoppingItem from "./components/NewShoppingItem";
 import ShoppingItems from "./components/ShoppingItems";
+import ShoppingCart from "./components/ShoppingCart";
 import "./App.css";
-
-const DUMMY_PROFUCTS = [
-  {
-    productName: "soap kit",
-    id: "e2",
-    title: "NewTV",
-    price: 799.49,
-    photoURI: "product1.jpeg",
-  },
-  {
-    productName: "hands soap",
-    id: "e3",
-    title: "Car ins",
-    price: 294.89,
-    photoURI: "product2.jpeg",
-  },
-  {
-    productName: "comb",
-    id: "e4",
-    title: "New Desk",
-    price: 450,
-    photoURI: "product3.jpeg",
-  },
-  {
-    productName: "shampoo",
-    id: "e5",
-    title: "New Desk",
-    price: 450,
-    photoURI: "product4.jpeg",
-  },
-];
+import { BrowserRouter } from "react-router-dom";
+import { Routes, Route } from "react-router";
+import Header from "./components/Header";
 
 const App = () => {
-  const [products, setProducts] = useState(DUMMY_PROFUCTS);
+  const [cart, setCart] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
 
-  const addProductsHandler = (product) => {
-    console.log("im in APP.js");
-    console.log(product);
-
-    setProducts((prevProduct) => {
-      return [product, ...prevProduct];
-    });
+  const deleteItemFromShoppingCart = (itemId) => {
+    const item = cart.find((item) => item.id === itemId);
+    setTotalPrice((totalPrice) => totalPrice - item.price);
+    setCart((cart) => [...cart.filter((item) => item.id !== itemId)]);
+  };
+  const emptyShoppingCart = () => {
+    setCart([]);
+  };
+  const addToCart = (item) => {
+    const existItem = cart.find((i) => i.id === item.id);
+    if (!existItem) {
+      let totalPrice = 0;
+      cart.forEach((cartItem) => {
+        totalPrice += cartItem.price;
+      });
+      totalPrice += item.price;
+      setCart((cart) => [...cart, item]);
+      setTotalPrice(totalPrice);
+      console.log("cart: " + cart);
+    }
   };
 
   return (
-    <div className="container">
-      <div className="header">
-        <h1>shopping List:</h1>
-      </div>
-      <NewShoppingItem onAddShopping={addProductsHandler} />
-      <ShoppingItems items={products} />
+    <div>
+      <BrowserRouter>
+        <Header />
+        <div className="products-container">
+          <Routes>
+            <Route path="/" element={<ShoppingItems addToCart={addToCart} />} />
+            <Route
+              path="/cart"
+              element={
+                <ShoppingCart
+                  cart={cart}
+                  totalPrice={totalPrice}
+                  emptyShoppingCart={emptyShoppingCart}
+                  deleteItemFromShoppingCart={deleteItemFromShoppingCart}
+                />
+              }
+            />
+          </Routes>
+        </div>
+      </BrowserRouter>
     </div>
   );
 };
