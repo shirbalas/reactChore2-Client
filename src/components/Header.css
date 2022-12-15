@@ -1,20 +1,26 @@
-/* .ShoppingItems {
-  text-align: center;
-}
-
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* background-color: #66d98b; */
+}
+.header-name {
+  width: 206px;
 }
 
+.links-container {
+  margin-right: auto;
+}
+/* .header-style {
+  background-color: #66d98b;
+} */
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
 }
 .header {
-  background-color: #c6a8ec;
+  background-color: #cc91df;
   width: 100%;
   text-align: center;
   margin-bottom: 20px;
@@ -27,4 +33,4 @@
   to {
     transform: rotate(360deg);
   }
-} */
+}
